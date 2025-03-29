@@ -92,9 +92,9 @@ const LoginForm: React.FC = () => {
         sessionStorage.setItem('accessToken', res.accessToken);
         sessionStorage.setItem('refreshToken', res.refreshToken);
         sessionStorage.setItem('loginUser', JSON.stringify(res.user));
-        console.log('acess token', res.accessToken);
-        console.log('acess refersh token', res.refreshToken);
-        console.log('acess token', res.user);
+        // console.log('acess token', res.accessToken);
+        // console.log('acess refersh token', res.refreshToken);
+        // console.log('acess token', res.user);
         toast({
           variant: 'success',
           title: 'Success!',

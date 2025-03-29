@@ -7,7 +7,7 @@ const useApi = () => {
   const [error, setError] = useState<string | null>(null);
 
   const getHeaders = () => {
-    const token = localStorage.getItem('accessToken');
+    const token = sessionStorage.getItem('accessToken');
     return {
       Authorization: `Bearer ${token}`,
     };
@@ -21,6 +21,7 @@ const useApi = () => {
     data?: any;
     params?: any;
     attemptRefresh?: boolean;
+    headers?: any;
   }
 
   const request = async ({
@@ -29,6 +30,7 @@ const useApi = () => {
     data = {},
     params = {},
     attemptRefresh = true,
+    headers =getHeaders()
   }: RequestConfig): Promise<any> => {
     setIsLoading(true);
     setError(null);
@@ -37,7 +39,10 @@ const useApi = () => {
       const response: AxiosResponse = await axios({
         method,
         url: `http://localhost:4001/api/${url}`,
-        headers: getHeaders(),
+        headers: {
+          'Content-Type': 'application/json',
+          ...headers, // Allows custom headers (e.g., Authorization token)
+        },
         data,
         params,
       });

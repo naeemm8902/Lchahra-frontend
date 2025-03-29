@@ -27,8 +27,6 @@ const Hero = () => {
 const Menu = () => {
   const menu = [
     { label: 'Dashboard', link: '/' },
-    { label: 'channels', link: '/todos' },
-    { label: 'Messeges', link: '/projects' },
   ];
   return (
     <div className="my-4 h-[70%] overflow-auto ">
