@@ -1,0 +1,50 @@
+[
+  {
+    "Date": "2024-08-31T09:00:00Z",
+    "user_id": "64f3a2c3d74b1c8b8c3b12a7",
+    "tods": [
+      {
+        "task": "Complete frontend design",
+        "status": true,
+        "todo_id": "64f3a2c3d74b1c8b8c3b12b1"
+      },
+      {
+        "task": "Set up API integration",
+        "status": false,
+        "todo_id": "64f3a2c3d74b1c8b8c3b12b2"
+      }
+    ]
+  },
+  {
+    "Date": "2024-09-01T14:00:00Z",
+    "user_id": "64f3a2c3d74b1c8b8c3b12a8",
+    "tods": [
+      {
+        "task": "Deploy backend server",
+        "status": true,
+        "todo_id": "64f3a2c3d74b1c8b8c3b12b3"
+      },
+      {
+        "task": "Write unit tests",
+        "status": false,
+        "todo_id": "64f3a2c3d74b1c8b8c3b12b4"
+      }
+    ]
+  },
+  {
+    "Date": "2024-09-02T10:00:00Z",
+    "user_id": "64f3a2c3d74b1c8b8c3b12a9",
+    "tods": [
+      {
+        "task": "Review codebase",
+        "status": true,
+        "todo_id": "64f3a2c3d74b1c8b8c3b12b5"
+      },
+      {
+        "task": "Fix bugs in authentication",
+        "status": false,
+        "todo_id": "64f3a2c3d74b1c8b8c3b12b6"
+      }
+    ]
+  }
+]

@@ -1,0 +1,146 @@
+[
+  {
+    "_id": "64f3a2c3d74b1c8b8c3b12c1",
+    "user_id": "64f3a2c3d74b1c8b8c3b12a7",
+    "project_name": "Portfolio Website",
+    "project_description": "A personal portfolio website to showcase projects and skills.",
+    "task": [
+      {
+        "task_name": "Design UI/UX",
+        "description": "Create wireframes and design the overall look and feel of the portfolio.",
+        "state": "completed",
+        "task_id": "64f3a2c3d74b1c8b8c3b12d1"
+      },
+      {
+        "task_name": "Develop Frontend",
+        "description": "Implement the design using Next.js and Tailwind CSS.",
+        "state": "in progress",
+        "task_id": "64f3a2c3d74b1c8b8c3b12d2"
+      }
+    ]
+  },
+  {
+    "_id": "64f3a2c3d74b1c8b8c3b12c2",
+    "user_id": "64f3a2c3d74b1c8b8c3b12a8",
+    "project_name": "E-commerce Platform",
+    "project_description": "A full-stack e-commerce platform with payment integration and user authentication.",
+    "task": [
+      {
+        "task_name": "Setup Backend",
+        "description": "Create the backend using Node.js, Express, and MongoDB.",
+        "state": "completed",
+        "task_id": "64f3a2c3d74b1c8b8c3b12d3"
+      },
+      {
+        "task_name": "Implement Authentication",
+        "description": "Develop user login, registration, and authentication features.",
+        "state": "in progress",
+        "task_id": "64f3a2c3d74b1c8b8c3b12d4"
+      },
+      {
+        "task_name": "Integrate Payment Gateway",
+        "description": "Set up payment processing with Stripe.",
+        "state": "not started",
+        "task_id": "64f3a2c3d74b1c8b8c3b12d5"
+      }
+    ]
+  },
+  {
+    "_id": "64f3a2c3d74b1c8b8c3b12c3",
+    "user_id": "64f3a2c3d74b1c8b8c3b12a9",
+    "project_name": "Task Management App",
+    "project_description": "A simple task management app for tracking personal and work-related tasks.",
+    "task": [
+      {
+        "task_name": "Create Task Model",
+        "description": "Design the Mongoose model for storing tasks.",
+        "state": "completed",
+        "task_id": "64f3a2c3d74b1c8b8c3b12d6"
+      },
+      {
+        "task_name": "Develop API",
+        "description": "Set up RESTful API for managing tasks.",
+        "state": "in progress",
+        "task_id": "64f3a2c3d74b1c8b8c3b12d7"
+      },
+      {
+        "task_name": "Build Frontend",
+        "description": "Create the frontend using React and Tailwind CSS.",
+        "state": "not started",
+        "task_id": "64f3a2c3d74b1c8b8c3b12d8"
+      }
+    ]
+  },
+  {
+    "_id": "64f3a2c3d74b1c8b8c3b12c1",
+    "user_id": "64f3a2c3d74b1c8b8c3b12a7",
+    "project_name": "Portfolio Website",
+    "project_description": "A personal portfolio website to showcase projects and skills.",
+    "task": [
+      {
+        "task_name": "Design UI/UX",
+        "description": "Create wireframes and design the overall look and feel of the portfolio.",
+        "state": "completed",
+        "task_id": "64f3a2c3d74b1c8b8c3b12d1"
+      },
+      {
+        "task_name": "Develop Frontend",
+        "description": "Implement the design using Next.js and Tailwind CSS.",
+        "state": "in progress",
+        "task_id": "64f3a2c3d74b1c8b8c3b12d2"
+      }
+    ]
+  },
+  {
+    "_id": "64f3a2c3d74b1c8b8c3b12c2",
+    "user_id": "64f3a2c3d74b1c8b8c3b12a8",
+    "project_name": "E-commerce Platform",
+    "project_description": "A full-stack e-commerce platform with payment integration and user authentication.",
+    "task": [
+      {
+        "task_name": "Setup Backend",
+        "description": "Create the backend using Node.js, Express, and MongoDB.",
+        "state": "completed",
+        "task_id": "64f3a2c3d74b1c8b8c3b12d3"
+      },
+      {
+        "task_name": "Implement Authentication",
+        "description": "Develop user login, registration, and authentication features.",
+        "state": "in progress",
+        "task_id": "64f3a2c3d74b1c8b8c3b12d4"
+      },
+      {
+        "task_name": "Integrate Payment Gateway",
+        "description": "Set up payment processing with Stripe.",
+        "state": "not started",
+        "task_id": "64f3a2c3d74b1c8b8c3b12d5"
+      }
+    ]
+  },
+  {
+    "_id": "64f3a2c3d74b1c8b8c3b12c3",
+    "user_id": "64f3a2c3d74b1c8b8c3b12a9",
+    "project_name": "Task Management App",
+    "project_description": "A simple task management app for tracking personal and work-related tasks.",
+    "task": [
+      {
+        "task_name": "Create Task Model",
+        "description": "Design the Mongoose model for storing tasks.",
+        "state": "completed",
+        "task_id": "64f3a2c3d74b1c8b8c3b12d6"
+      },
+      {
+        "task_name": "Develop API",
+        "description": "Set up RESTful API for managing tasks.",
+        "state": "in progress",
+        "task_id": "64f3a2c3d74b1c8b8c3b12d7"
+      },
+      {
+        "task_name": "Build Frontend",
+        "description": "Create the frontend using React and Tailwind CSS.",
+        "state": "not started",
+        "task_id": "64f3a2c3d74b1c8b8c3b12d8"
+      }
+    ]
+  }
+]
