@@ -4,6 +4,7 @@ import { MdGroupAdd, MdDashboard, MdWorkspaces } from 'react-icons/md';
 import { useEffect, useState } from 'react';
 import AddWorkSpaceForm from '../common/AddWorkSpaceForm';
 import useApiCall from '@/helpers/useApiCall';
+import Link from 'next/link';
 
 export default function Dashboard() {
   const { error, isLoading, request } = useApiCall();
@@ -72,10 +73,12 @@ export default function Dashboard() {
         <h1 className="text-black text-2xl mb-4 text-left">Your workspace </h1>
 
         {/*Your Workspace Metrics */}
+       
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {workspaces?.myWorkspaces?.map((workspace:any, index:number) => (
+             <Link href={'/workspace'}  key={index}>
             <div
-              key={index}
+             
               className="relative  backdrop-blur-sm rounded-xl p-4 transition-all cursor-pointer group border border-gray-700/50 hover:border-blue-400/30"
             >
               <div className="flex items-center justify-between">
@@ -92,16 +95,17 @@ export default function Dashboard() {
               <div className="mt-4">
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-blue-300">Progress</span>
-                  <span className="text-white">{(index + 1) * 25}%</span>
+                  <span className="text-white">{1 * 25}%</span>
                 </div>
                 <div className="w-full bg-gray-700 rounded-full h-2 mt-1">
                   <div
                     className="bg-gradient-to-r from-blue-400 to-purple-500 h-2 rounded-full"
-                    style={{ width: `${(index + 1) * 25}%` }}
+                    style={{ width: `${1 * 25}%` }}
                   />
                 </div>
               </div>
             </div>
+            </Link>
           ))}
         </div>
         <h1 className="text-black text-2xl mb-4 text-left">Join workspace </h1>
