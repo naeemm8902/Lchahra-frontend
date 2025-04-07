@@ -1,12 +1,33 @@
 "use client";
 import { useState, ReactNode } from "react";
-import { MessagesSquare, Briefcase, Clock, Users,Home } from 'lucide-react';
-import Link from "next/link";
+import {
+  MessagesSquare,
+  Briefcase,
+  Clock,
+  Users,
+  Home,
+  Mail,
+  ClipboardCheck,
+} from 'lucide-react';
+import Link from 'next/link';
+import {
+  EnvelopeIcon,
+  UserGroupIcon,
+  ClockIcon,
+} from '@heroicons/react/24/outline';
+import { useRouter } from 'next/router';
+
 const ChatSidebar = () => (
   <div className="space-y-2">
     <h3 className="text-sm font-semibold text-gray-700">Chat Links</h3>
-    {["General Chat", "Team Chat", "Project Chat"].map((chat, index) => (
-      <Link key={index} href="#" className="block p-2 text-sm hover:underline text-blue-600">{chat}</Link>
+    {['General Chat', 'Team Chat', 'Project Chat'].map((chat, index) => (
+      <Link
+        key={index}
+        href="#"
+        className="block p-2 text-sm hover:underline text-blue-600"
+      >
+        {chat}
+      </Link>
     ))}
   </div>
 );
@@ -14,35 +35,72 @@ const ChatSidebar = () => (
 const ProjectManagementSidebar = () => (
   <div className="space-y-2">
     <h3 className="text-sm font-semibold text-gray-700">Projects</h3>
-    {["Website Redesign", "Mobile App", "Marketing Campaign"].map((project, index) => (
-      <Link key={index} href="#" className="block p-2 text-sm hover:underline text-blue-600">{project}</Link>
-    ))}
+    {['Website Redesign', 'Mobile App', 'Marketing Campaign'].map(
+      (project, index) => (
+        <Link
+          key={index}
+          href="#"
+          className="block p-2 text-sm hover:underline text-blue-600"
+        >
+          {project}
+        </Link>
+      ),
+    )}
   </div>
 );
 
 const TimeTrackingSidebar = () => (
   <div className="space-y-2">
     <h3 className="text-sm font-semibold text-gray-700">Time Reports</h3>
-    {["Current Week", "Last Week", "Monthly Report"].map((report, index) => (
-      <Link key={index} href="#" className="block p-2 text-sm hover:underline text-blue-600">{report}</Link>
+    {['Current Week', 'Last Week', 'Monthly Report'].map((report, index) => (
+      <Link
+        key={index}
+        href="#"
+        className="block p-2 text-sm hover:underline text-blue-600"
+      >
+        {report}
+      </Link>
     ))}
   </div>
 );
 
 const MembersManagementSidebar = () => {
-    const navLinks = [
-        {text: 'Invites', link:"/workspace/members/invite"},
-        {text: 'Members', link:"/workspace/members/list"}
-    ]
-return(
-  <div className="space-y-2">
-    <h3 className="text-sm font-semibold text-gray-700">Members</h3>
-    {navLinks.map((link,index) => (
-      <Link key={index} href={link.link} className="block p-2 text-sm hover:underline text-blue-600">{link.text}</Link>
-    ))}
-  </div>
-)
-}
+  const navLinks = [
+    {
+      text: 'Invites',
+      link: '/workspace/members/invite',
+      icon: <Mail className="w-5 h-5 text-blue-600" />,
+    },
+    {
+      text: 'Members',
+      link: '/workspace/members/list',
+      icon: <Users className="w-5 h-5 text-blue-600" />,
+    },
+    {
+      text: 'Pending Invitations',
+      link: '/workspace/members/invitations',
+      icon: <ClipboardCheck className="w-5 h-5 text-blue-600" />,
+    },
+  ];
+
+  return (
+    <div className="">
+      <h3 className="text-lg font-semibold text-gray-800">
+        Members Management
+      </h3>
+      {navLinks.map((link, index) => (
+        <Link
+          key={index}
+          href={link.link}
+          className="flex items-center space-x-3 p-3 rounded-lg text-sm text-gray-700 hover:w-full hover:bg-blue-100 hover:text-blue-600 transition-all duration-200"
+        >
+          {link.icon}
+          <span>{link.text}</span>
+        </Link>
+      ))}
+    </div>
+  );
+};
 
 const HomeSidebar = () => (
   <div className="space-y-2">

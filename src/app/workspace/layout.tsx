@@ -15,15 +15,15 @@ const Navbar = () => {
 const layout:React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <>
-    <Navbar/>
-    <div className="bg-white dark:bg-gray-900 h-screen flex">
-      <WorkSpaceSidebar/>
-      <div className="flex-1 overflow-y-auto p-6 flex items-center justify-center text-gray-800 text-2xl">
-        {children}
+      <Navbar />
+      <div className="bg-white dark:bg-gray-900 h-screen flex">
+        <WorkSpaceSidebar />
+        <div className="flex-1 overflow-y-auto p-6 flex  justify-center text-gray-800 text-2xl">
+          {children}
+        </div>
       </div>
-    </div>
-  </>
-  )
+    </>
+  );
 }
 
 export default layout
