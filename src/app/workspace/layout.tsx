@@ -1,14 +1,17 @@
 "use client";
 import Link from "next/link";
 import WorkSpaceSidebar from "@/components/layouts/workspace/WorkSpaceSidebar";
+import { useWorkspace } from '@/context/selectedWorkspaceContext';
 
-const Navbar = ()=>{
-  return(
+const Navbar = () => {
+  const { selectedWorkspace } = useWorkspace();
+  return (
     <div className="h-16 bg-gray-900 text-white flex items-center px-6">
-     <Link href={'/'}>Ichera</Link>
-      </div>
-  )
-}
+      <Link href={'/'}>Ichera </Link>
+      <div className="px-3">{selectedWorkspace?.name}</div>
+    </div>
+  );
+};
 const layout:React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <>

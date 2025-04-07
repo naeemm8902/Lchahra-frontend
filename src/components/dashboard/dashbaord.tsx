@@ -85,7 +85,7 @@ export default function Dashboard() {
               href={'/workspace'}
               key={index}
               onClick={() => {
-                selectWorkspace(workspaces);
+                selectWorkspace(workspace);
               }}
             >
               <div className="relative  backdrop-blur-sm rounded-xl p-4 transition-all cursor-pointer group border border-gray-700/50 hover:border-blue-400/30">

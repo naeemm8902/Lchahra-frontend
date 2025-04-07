@@ -25,6 +25,7 @@ export const WorkspaceProvider = ({ children }: { children: ReactNode }) => {
     if (storedWorkspace) {
       try {
         setSelectedWorkspace(JSON.parse(storedWorkspace)); // deserialize
+        console.log(selectWorkspace);
       } catch (e) {
         console.error('Failed to parse stored workspace', e);
       }
