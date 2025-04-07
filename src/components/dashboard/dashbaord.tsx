@@ -5,10 +5,13 @@ import { useEffect, useState } from 'react';
 import AddWorkSpaceForm from '../common/AddWorkSpaceForm';
 import useApiCall from '@/helpers/useApiCall';
 import Link from 'next/link';
+import { useWorkspace } from '@/context/selectedWorkspaceContext';
 
 export default function Dashboard() {
   const { error, isLoading, request } = useApiCall();
   const [showAddWorkspaceForm, setShowAddWorkspaceForm] = useState(false);
+  const { selectedWorkspace, selectWorkspace, clearWorkspace } = useWorkspace();
+
   const handleAddWorkspaceClick = () => {
     setShowAddWorkspaceForm(true);
   };
@@ -28,11 +31,13 @@ export default function Dashboard() {
         },
       });
       console.log('Workspace response:', res);
-      setWorkspaces({myWorkspaces: res.myWorkspaces, guestWorkSpaces: res.guestWorkspace});
+      setWorkspaces({
+        myWorkspaces: res.myWorkspaces,
+        guestWorkSpaces: res.guestWorkspace,
+      });
     } catch (err: any) {
       console.log('Error creating workspace:', err);
     }
-
   }
   useEffect(() => {
     getMyWorkspaces();
@@ -73,38 +78,41 @@ export default function Dashboard() {
         <h1 className="text-black text-2xl mb-4 text-left">Your workspace </h1>
 
         {/*Your Workspace Metrics */}
-       
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          {workspaces?.myWorkspaces?.map((workspace:any, index:number) => (
-             <Link href={'/workspace'}  key={index}>
-            <div
-             
-              className="relative  backdrop-blur-sm rounded-xl p-4 transition-all cursor-pointer group border border-gray-700/50 hover:border-blue-400/30"
+          {workspaces?.myWorkspaces?.map((workspace: any, index: number) => (
+            <Link
+              href={'/workspace'}
+              key={index}
+              onClick={() => {
+                selectWorkspace(workspaces);
+              }}
             >
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-blue-300 mb-1">
-                    {workspace.name}
-                  </p>
-                  <h3 className="text-lg font-semibold text-black">
-                    Project Phase {index + 1}
-                  </h3>
+              <div className="relative  backdrop-blur-sm rounded-xl p-4 transition-all cursor-pointer group border border-gray-700/50 hover:border-blue-400/30">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-blue-300 mb-1">
+                      {workspace.name}
+                    </p>
+                    <h3 className="text-lg font-semibold text-black">
+                      Project Phase {index + 1}
+                    </h3>
+                  </div>
+                  <MdWorkspaces className="text-2xl text-purple-400" />
                 </div>
-                <MdWorkspaces className="text-2xl text-purple-400" />
+                <div className="mt-4">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-blue-300">Progress</span>
+                    <span className="text-white">{1 * 25}%</span>
+                  </div>
+                  <div className="w-full bg-gray-700 rounded-full h-2 mt-1">
+                    <div
+                      className="bg-gradient-to-r from-blue-400 to-purple-500 h-2 rounded-full"
+                      style={{ width: `${1 * 25}%` }}
+                    />
+                  </div>
+                </div>
               </div>
-              <div className="mt-4">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-blue-300">Progress</span>
-                  <span className="text-white">{1 * 25}%</span>
-                </div>
-                <div className="w-full bg-gray-700 rounded-full h-2 mt-1">
-                  <div
-                    className="bg-gradient-to-r from-blue-400 to-purple-500 h-2 rounded-full"
-                    style={{ width: `${1 * 25}%` }}
-                  />
-                </div>
-              </div>
-            </div>
             </Link>
           ))}
         </div>
@@ -112,16 +120,17 @@ export default function Dashboard() {
 
         {/*Join Workspace Metrics */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          {workspaces?.guestWorkSpaces?.map((workspace:any, index:number) => (
+          {workspaces?.guestWorkSpaces?.map((workspace: any, index: number) => (
             <div
               key={index}
               className="relative  backdrop-blur-sm rounded-xl p-4 transition-all cursor-pointer group border border-gray-700/50 hover:border-blue-400/30"
+              onClick={() => {
+                selectWorkspace(workspaces);
+              }}
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-blue-300 mb-1">
-                    {workspace.name}
-                  </p>
+                  <p className="text-sm text-blue-300 mb-1">{workspace.name}</p>
                   <h3 className="text-lg font-semibold text-black">
                     Project Phase {index + 1}
                   </h3>
@@ -143,7 +152,6 @@ export default function Dashboard() {
             </div>
           ))}
         </div>
-
       </div>
       {/* Floating Action Button */}
       {/* <div className="fixed bottom-6 right-6">
@@ -155,11 +163,11 @@ export default function Dashboard() {
         </Button>
       </div> */}
       <div
-        className={`fixed w-full h-screen top-0 left-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 transition-opacity duration-300 ${showAddWorkspaceForm ? 'opacity-100 visible' : 'opacity-0 invisible'
-          }`}
+        className={`fixed w-full h-screen top-0 left-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 transition-opacity duration-300 ${
+          showAddWorkspaceForm ? 'opacity-100 visible' : 'opacity-0 invisible'
+        }`}
       >
         <AddWorkSpaceForm handleCloseForm={handleCloseForm} />
-
       </div>
     </div>
   );

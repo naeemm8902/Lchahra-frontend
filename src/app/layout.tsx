@@ -5,6 +5,7 @@ import SideBar from '@/components/layouts/SideBar';
 import { Toaster } from '@/components/ui/toaster';
 import { LoginProvider } from '@/context/LoginContext';
 import Navbar from '@/components/layouts/Navbar';
+import { WorkspaceProvider } from '@/context/selectedWorkspaceContext';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,7 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <LoginProvider>
-          {children}
+          <WorkspaceProvider>{children}</WorkspaceProvider>
           <Toaster />
         </LoginProvider>
       </body>
