@@ -95,13 +95,15 @@ function InputOTPForm() {
   const router = useRouter();
   const { reset } = form;
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
+    // console.log(data);
+    console.log('starts');
     try {
       const res = await request({
         method: 'POST',
         url: 'users/login/loginwithcode',
         data: { code: data.pin },
       });
+      console.log('data is', data);
       toast({
         variant: 'success',
         title: 'Success!',

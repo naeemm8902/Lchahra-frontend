@@ -69,7 +69,10 @@ export default function Dashboard() {
                 px-5 py-3 rounded-xl font-medium shadow-lg transition-all 
                 hover:scale-105 hover:shadow-xl active:scale-95"
               startIcon={<MdGroupAdd className="text-xl text-white" />}
-              onClick={handleAddWorkspaceClick}
+              // onClick={handleAddWorkspaceClick}
+              onClick={() => {
+                handleAddWorkspaceClick();
+              }}
             >
               <span className="hidden md:inline">Create New Workspace</span>
             </Button>
@@ -167,7 +170,10 @@ export default function Dashboard() {
           showAddWorkspaceForm ? 'opacity-100 visible' : 'opacity-0 invisible'
         }`}
       >
-        <AddWorkSpaceForm handleCloseForm={handleCloseForm} />
+        <AddWorkSpaceForm
+          handleCloseForm={handleCloseForm}
+          getMyWorkspaces={getMyWorkspaces}
+        />
       </div>
     </div>
   );
