@@ -5,10 +5,13 @@ import { useEffect, useState } from 'react';
 import AddWorkSpaceForm from '../common/AddWorkSpaceForm';
 import useApiCall from '@/helpers/useApiCall';
 import Link from 'next/link';
+import { useWorkspace } from '@/context/selectedWorkspaceContext';
 
 export default function Dashboard() {
   const { error, isLoading, request } = useApiCall();
   const [showAddWorkspaceForm, setShowAddWorkspaceForm] = useState(false);
+  const { selectedWorkspace, selectWorkspace, clearWorkspace } = useWorkspace();
+
   const handleAddWorkspaceClick = () => {
     setShowAddWorkspaceForm(true);
   };
@@ -28,11 +31,13 @@ export default function Dashboard() {
         },
       });
       console.log('Workspace response:', res);
-      setWorkspaces({myWorkspaces: res.myWorkspaces, guestWorkSpaces: res.guestWorkspace});
+      setWorkspaces({
+        myWorkspaces: res.myWorkspaces,
+        guestWorkSpaces: res.guestWorkspace,
+      });
     } catch (err: any) {
       console.log('Error creating workspace:', err);
     }
-
   }
   useEffect(() => {
     getMyWorkspaces();
@@ -64,7 +69,10 @@ export default function Dashboard() {
                 px-5 py-3 rounded-xl font-medium shadow-lg transition-all 
                 hover:scale-105 hover:shadow-xl active:scale-95"
               startIcon={<MdGroupAdd className="text-xl text-white" />}
-              onClick={handleAddWorkspaceClick}
+              // onClick={handleAddWorkspaceClick}
+              onClick={() => {
+                handleAddWorkspaceClick();
+              }}
             >
               <span className="hidden md:inline">Create New Workspace</span>
             </Button>
@@ -76,7 +84,13 @@ export default function Dashboard() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {workspaces?.myWorkspaces?.map((workspace: any, index: number) => (
-            <Link href={'/workspace'} key={index}>
+            <Link
+              href={'/workspace'}
+              key={index}
+              onClick={() => {
+                selectWorkspace(workspace);
+              }}
+            >
               <div className="relative  backdrop-blur-sm rounded-xl p-4 transition-all cursor-pointer group border border-gray-700/50 hover:border-blue-400/30">
                 <div className="flex items-center justify-between">
                   <div>
@@ -113,6 +127,9 @@ export default function Dashboard() {
             <div
               key={index}
               className="relative  backdrop-blur-sm rounded-xl p-4 transition-all cursor-pointer group border border-gray-700/50 hover:border-blue-400/30"
+              onClick={() => {
+                selectWorkspace(workspaces);
+              }}
             >
               <div className="flex items-center justify-between">
                 <div>
@@ -153,7 +170,10 @@ export default function Dashboard() {
           showAddWorkspaceForm ? 'opacity-100 visible' : 'opacity-0 invisible'
         }`}
       >
-        <AddWorkSpaceForm handleCloseForm={handleCloseForm} />
+        <AddWorkSpaceForm
+          handleCloseForm={handleCloseForm}
+          getMyWorkspaces={getMyWorkspaces}
+        />
       </div>
     </div>
   );
@@ -182,8 +202,8 @@ export default function Dashboard() {
 //           <FlexboxGrid.Item as={Col} xs={24} md={12} className="text-right">
 //             <Button
 //               appearance="primary"
-//               className="bg-gradient-to-r from-blue-800 to-purple-900 text-white border-0 
-//                 px-5 py-3 rounded-xl font-medium shadow-lg transition-all 
+//               className="bg-gradient-to-r from-blue-800 to-purple-900 text-white border-0
+//                 px-5 py-3 rounded-xl font-medium shadow-lg transition-all
 //                 hover:scale-105 hover:shadow-xl active:scale-95"
 //               startIcon={<MdGroupAdd className="text-xl text-white" />}
 //             >

@@ -6,55 +6,64 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { CheckCircle, XCircle } from "lucide-react";
 import useApiCall from "@/helpers/useApiCall";
+import { useWorkspace } from '@/context/selectedWorkspaceContext';
+
 const InviteMembers = () => {
   const token = sessionStorage.getItem('accessToken');
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const [invitedMembers, setInvitedMembers] = useState<string[]>([]);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
-  const  { error, isLoading, request } = useApiCall();
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const { error, isLoading, request } = useApiCall();
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const { selectedWorkspace } = useWorkspace();
 
   const handleInvite = () => {
-    setErrorMessage("");
-    setSuccessMessage("");
+    setErrorMessage('');
+    setSuccessMessage('');
 
     if (!emailRegex.test(email)) {
-      setErrorMessage("Please enter a valid email address");
+      setErrorMessage('Please enter a valid email address');
       return;
     }
 
     if (invitedMembers.includes(email)) {
-      setErrorMessage("This email has already been invited");
+      setErrorMessage('This email has already been invited');
       return;
     }
 
     setInvitedMembers([...invitedMembers, email]);
     setSuccessMessage(`${email} added successfully!`);
-    setEmail("");
+    setEmail('');
   };
 
   const handleRemove = (emailToRemove: string) => {
-    setInvitedMembers(invitedMembers.filter(email => email !== emailToRemove));
+    setInvitedMembers(
+      invitedMembers.filter((email) => email !== emailToRemove),
+    );
   };
 
   const handleSubmit = async () => {
+    const token = sessionStorage.getItem('accessToken');
     try {
       const res = await request({
-        method: 'GET',
-        url: 'workspace/my-workspaces',
+        method: 'POST',
+        url: 'invitations/send',
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        data: {
+          emails: invitedMembers,
+          invitedWorkspace: selectedWorkspace._id,
+        },
       });
-      console.log("Invited Members:", invitedMembers);
-      setSuccessMessage("Invitations sent successfully!");
+      console.log('Invited Members:', invitedMembers);
+      setSuccessMessage('Invitations sent successfully!');
       setInvitedMembers([]);
     } catch (err: any) {
       console.log('Error in send invitation:', err);
-      alert("Error in send invitation")
+      alert('Error in send invitation');
     }
-   
   };
 
   return (
@@ -62,7 +71,7 @@ const InviteMembers = () => {
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
       >
         <Card className="shadow-lg border-0 bg-gradient-to-br from-blue-50 to-purple-50">
           <CardHeader>
@@ -77,12 +86,12 @@ const InviteMembers = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && handleInvite()}
+                onKeyDown={(e) => e.key === 'Enter' && handleInvite()}
                 placeholder="name@company.com"
                 className="flex-1 rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500"
               />
               <motion.div whileTap={{ scale: 0.95 }}>
-                <Button 
+                <Button
                   onClick={handleInvite}
                   className="bg-blue-600 hover:bg-blue-700 text-white font-semibold"
                 >
@@ -134,7 +143,9 @@ const InviteMembers = () => {
                       >
                         <div className="flex justify-between items-center">
                           <div className="flex items-center gap-2">
-                            <span className="text-gray-700 font-medium">{member}</span>
+                            <span className="text-gray-700 font-medium">
+                              {member}
+                            </span>
                             <CheckCircle className="w-4 h-4 text-green-500" />
                           </div>
                           <Button
