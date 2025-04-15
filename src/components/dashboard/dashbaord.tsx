@@ -30,10 +30,10 @@ export default function Dashboard() {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log('Workspace response:', res);
+      console.log('Workspace response:', res.guestWorkSpace);
       setWorkspaces({
         myWorkspaces: res.myWorkspaces,
-        guestWorkSpaces: res.guestWorkspace,
+        guestWorkSpaces: res.guestWorkSpace,
       });
     } catch (err: any) {
       console.log('Error creating workspace:', err);
@@ -123,12 +123,12 @@ export default function Dashboard() {
 
         {/*Join Workspace Metrics */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          {workspaces?.guestWorkSpaces?.map((workspace: any, index: number) => (
+          {/* {workspaces?.guestWorkSpaces?.map((workspace: any, index: number) => (
             <div
               key={index}
               className="relative  backdrop-blur-sm rounded-xl p-4 transition-all cursor-pointer group border border-gray-700/50 hover:border-blue-400/30"
               onClick={() => {
-                selectWorkspace(workspaces);
+                selectWorkspace(workspace);
               }}
             >
               <div className="flex items-center justify-between">
@@ -153,7 +153,14 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
-          ))}
+          ))} */}
+          {workspaces?.guestWorkSpaces?.map((workspace:any, index:number)=>{
+            return(
+            <div key={index}>
+               {workspace.name}
+            </div>
+            )
+          })}
         </div>
       </div>
       {/* Floating Action Button */}

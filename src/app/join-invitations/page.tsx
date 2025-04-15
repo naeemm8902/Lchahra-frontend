@@ -11,7 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import Layout from '@/components/layouts/Layout';
 import ProtectedRoute from '@/components/layouts/ProtectedRoute';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useApiCall from '@/helpers/useApiCall';
 
 // Dummy Data
@@ -53,41 +53,60 @@ const getStatusColor = (status: string) => {
 };
 
 const Page = () => {
-  const [invitations, setInvitations] = useState([
-    {
-      id: '1',
-      email: 'john.doe@example.com',
-      invitedBy: 'Alice Johnson',
-      workspace: 'Marketing Team',
-      status: 'pending',
-    },
-    {
-      id: '2',
-      email: 'jane.smith@example.com',
-      invitedBy: 'Bob Lee',
-      workspace: 'Dev Team',
-      status: 'accepted',
-    },
-    {
-      id: '3',
-      email: 'tim.brown@example.com',
-      invitedBy: 'Charlie Kim',
-      workspace: 'Design Studio',
-      status: 'rejected',
-    },
-  ]);
+  const [invitations, setInvitations] = useState<any>([]);
   const { request } = useApiCall();
   const fetchInvitations = async () => {
+    const token = sessionStorage.getItem('accessToken');
     try {
       const res = await request({
         method: 'GET',
-        url: 'invitations/getJoinRequest',
+        url: 'invitations/get-join-request',
+        headers:{
+          Authorization:`Bearer ${token}`
+        }
       });
-      console.log('Fetched invitations:', res.data);
+      setInvitations(res)
+      // console.log('Fetched invitations:', res);
     } catch (error) {
       console.error('Error fetching invitations:', error);
     }
   };
+  useEffect(()=>{
+    fetchInvitations();
+  },[])
+
+  const acceptedInvitation = async (invitationId:any)=>{
+    const token = sessionStorage.getItem('accessToken');
+    try {
+      const res = await request({
+        method: 'PUT',
+        url: `invitations/accept/${invitationId}`,
+        headers:{
+          Authorization:`Bearer ${token}`
+        }
+      });
+      console.log("updated invtation "+res)
+      fetchInvitations();
+    } catch (error) {
+      console.error('Error fetching invitations:', error);
+    }
+  }
+  const rejectInvitation = async (invitationId:any)=>{
+    const token = sessionStorage.getItem('accessToken');
+    try {
+      const res = await request({
+        method: 'PUT',
+        url: `invitations/reject/${invitationId}`,
+        headers:{
+          Authorization:`Bearer ${token}`
+        }
+      });
+      console.log("updated invtation "+res)
+      fetchInvitations();
+    } catch (error) {
+      console.error('Error fetching invitations:', error);
+    }
+  }
   return (
     <ProtectedRoute>
       <Layout>
@@ -96,8 +115,8 @@ const Page = () => {
             Join Invitations
           </h1>
           <div className="grid gap-6">
-            {invitations.map((invitation) => (
-              <Card key={invitation.id} className="shadow-sm">
+            {invitations?.map((invitation:any, index:number) => (
+              <Card key={index} className="shadow-sm">
                 <CardHeader>
                   <CardTitle>{invitation.email}</CardTitle>
                   <CardDescription>
@@ -113,8 +132,8 @@ const Page = () => {
                 <CardFooter className="flex justify-end space-x-2">
                   {invitation.status === 'pending' && (
                     <>
-                      <Button variant="outline">Reject</Button>
-                      <Button>Accept</Button>
+                      <Button variant="outline" onClick={()=>rejectInvitation(invitation._id)}>Reject</Button>
+                      <Button onClick={()=>acceptedInvitation(invitation._id)}>Accept</Button>
                     </>
                   )}
                 </CardFooter>
