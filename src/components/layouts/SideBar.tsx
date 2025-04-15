@@ -27,6 +27,7 @@ const Hero = () => {
 const Menu = () => {
   const menu = [
     { label: 'Dashboard', link: '/' },
+    { label: 'Join Invitation', link: 'join-invitations' },
   ];
   return (
     <div className="my-4 h-[70%] overflow-auto ">

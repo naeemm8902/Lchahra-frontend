@@ -53,10 +53,10 @@ export default function Dashboard() {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log('Workspace response:', res);
+      console.log('Workspace response:', res.guestWorkSpace);
       setWorkspaces({
         myWorkspaces: res.myWorkspaces,
-        guestWorkSpaces: res.guestWorkspace,
+        guestWorkSpaces: res.guestWorkSpace,
       });
     } catch (err: any) {
       console.log('Error creating workspace:', err);
