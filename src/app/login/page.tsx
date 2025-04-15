@@ -19,7 +19,7 @@ import {
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import useApiCall from '@/helpers/useApiCall';
-import { LoaderIcon } from 'lucide-react';
+import { LoaderIcon, Eye, EyeOff } from 'lucide-react';
 
 // Define the schema using zod
 const formSchema = z.object({
@@ -41,7 +41,7 @@ const page = () => {
         }}
       ></div>
       <Card className=" h-screen w-fit">
-        <div className=" h-full flex justify-center items-center text-white">
+        <div className=" h-full flex justify-center items-center text-black">
           <div className=" px-4">
             <CardHeader>
               <h1 className="text-center text-4xl font-bold mb-4 cursor-pointer">
@@ -71,6 +71,7 @@ const LoginForm: React.FC = () => {
   const { toast } = useToast();
   const router = useRouter();
   const { error, isLoading, request } = useApiCall();
+  const [showPassword, setShowPassword] = useState(false);
 
   // Initialize the form with useForm and zodResolver
   const form = useForm({
@@ -151,12 +152,25 @@ const LoginForm: React.FC = () => {
             <FormItem>
               <FormLabel>Password *</FormLabel>
               <FormControl>
-                <Input
-                  placeholder="Password"
-                  type="password"
-                  {...field}
-                  className="sm:min-w-96"
-                />
+                <div className="relative">
+                  <Input
+                    placeholder="Password"
+                    type={showPassword ? "text" : "password"}
+                    {...field}
+                    className="sm:min-w-96"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2"
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4 text-gray-500" />
+                    ) : (
+                      <Eye className="h-4 w-4 text-gray-500" />
+                    )}
+                  </button>
+                </div>
               </FormControl>
               <FormDescription></FormDescription>
               <FormMessage />

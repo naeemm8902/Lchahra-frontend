@@ -49,7 +49,7 @@ const page = () => {
         }}
       ></div>
       <Card className=" h-screen w-fit">
-        <div className=" h-full flex justify-center items-center text-white">
+        <div className=" h-full flex justify-center items-center text-black">
           <div className=" px-4">
             <CardHeader>
               <h1 className="text-center text-4xl font-bold mb-4 cursor-pointer">
