@@ -95,25 +95,6 @@ export default function Dashboard() {
 
   return (
     <div className="h-screen flex flex-col bg-theme text-theme overflow-hidden">
-      {/* Top navigation */}
-      <div className="bg-secondary-theme h-16 border-b border-gray-700/30 flex items-center justify-between px-6">
-        <div className="flex items-center">
-          <MdDashboard className="text-xl text-primary-theme mr-2" />
-          <h2 className="text-lg font-medium text-theme">Dashboard</h2>
-        </div>
-        
-        <div className="flex items-center space-x-4">
-          <span className="text-sm text-secondary-theme">{currentTime}</span>
-          <div className="relative">
-            <MdNotifications className="h-6 w-6 text-secondary-theme" />
-            <span className="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500"></span>
-          </div>
-          <div className="h-8 w-8 rounded-full bg-primary-theme text-theme flex items-center justify-center">
-            <span className="font-medium text-xs">JD</span>
-          </div>
-        </div>
-      </div>
-
       {/* Main content container with scroll */}
       <div className="flex-1 overflow-y-auto scroll-hide">
         <div className="p-6">

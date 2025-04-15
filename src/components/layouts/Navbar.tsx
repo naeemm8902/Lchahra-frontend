@@ -4,6 +4,7 @@ import { useAuth } from '@/context/LoginContext';
 import { useRouter } from 'next/navigation';
 import { Menu, Search } from 'lucide-react';
 import useApiCall from '../../helpers/useApiCall';
+import { MdGroupAdd, MdDashboard, MdWorkspaces, MdNotifications, MdSettings, MdSearch, MdCalendarToday, MdPeople, MdBookmark, MdUpdate, MdAdd, MdChevronRight } from 'react-icons/md';
 
 const THEMES = [
   { name: 'Light', value: 'theme-light' },
@@ -63,18 +64,30 @@ function ThemeSwitcher() {
 
 const Navbar = () => {
   const { isLoggedIn, toggleSidebarDisplay } = useAuth();
+  const [currentTime, setCurrentTime] = useState('');
 
-  if (!isLoggedIn) return null; // Prevent rendering when not logged in
+  if (!isLoggedIn) return null;
 
   return (
     <div className="flex justify-between items-center p-4 bg-theme text-theme">
-      {/* Sidebar Toggle */}
-      <div>
+      {/* Sidebar Toggle + Dashboard */}
+      <div className="flex items-center gap-4">
         <Menu
           className="hover:scale-110 hover:bg-white rounded-full cursor-pointer p-2 text-theme"
           onClick={() => toggleSidebarDisplay()}
           size={38}
         />
+        <div className="flex items-center">
+          <MdDashboard className="text-xl text-primary-theme mr-2" />
+          <h2 className="text-lg font-medium text-theme">Dashboard</h2>
+        </div>
+        <div className="flex items-center space-x-4">
+          <span className="text-sm text-secondary-theme">{currentTime}</span>
+          <div className="relative">
+            <MdNotifications className="h-6 w-6 text-secondary-theme" />
+            <span className="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500"></span>
+          </div>
+        </div>
       </div>
 
       {/* Search Box */}
@@ -95,6 +108,7 @@ const Navbar = () => {
     </div>
   );
 };
+
 
 export default Navbar;
 
