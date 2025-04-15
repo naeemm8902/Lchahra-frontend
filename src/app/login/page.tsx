@@ -31,24 +31,24 @@ const formSchema = z.object({
 
 const page = () => {
   return (
-    <div className="flex ">
+    <div className="flex flex-col md:flex-row min-h-screen">
       <div
-        className="bg-blue-300 w-full"
+        className="hidden md:block md:flex-1 bg-blue-300"
         style={{
           backgroundImage: 'url(/login.jpeg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       ></div>
-      <Card className="h-screen w-[450px] bg-black/60 backdrop-blur-2xl border-0 shadow-2xl">
-        <div className="h-full flex justify-center items-center">
-          <div className="px-8 w-full max-w-[400px]">
+      <Card className="flex-1 md:w-[550px] md:flex-none bg-black/60 backdrop-blur-2xl border-0 shadow-2xl">
+        <div className="min-h-screen flex justify-center items-center p-4">
+          <div className="w-full max-w-[500px] mx-auto">
             <CardHeader className="space-y-6 pb-8">
               <div className="flex justify-center">
                 <div className="relative">
                   <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 opacity-75 blur"></div>
-                  <div className="relative h-20 w-20 bg-black rounded-lg flex items-center justify-center">
-                    <h1 className="text-4xl font-bold text-white">L</h1>
+                  <div className="relative h-16 w-16 md:h-20 md:w-20 bg-black rounded-lg flex items-center justify-center">
+                    <h1 className="text-3xl md:text-4xl font-bold text-white">L</h1>
                   </div>
                 </div>
               </div>
