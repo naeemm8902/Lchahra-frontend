@@ -169,7 +169,7 @@ const SidebarButton = ({ icon, label, isSelected, onClick  }: { icon: ReactNode;
 
 interface WorkSpaceSidebarProps {
   selected: string;
-  onSelect: (id: string) => void;
+  onSelect: (id: any) => void;
 }
 
 const WorkSpaceSidebar = ({ selected, onSelect }: WorkSpaceSidebarProps) => {
