@@ -35,27 +35,50 @@ const page = () => {
       <div
         className="bg-blue-300 w-full"
         style={{
-          backgroundImage: 'url(/loginbg.avif)',
+          backgroundImage: 'url(/login.jpeg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       ></div>
-      <Card className=" h-screen w-fit">
-        <div className=" h-full flex justify-center items-center text-black">
-          <div className=" px-4">
-            <CardHeader>
-              <h1 className="text-center text-4xl font-bold mb-4 cursor-pointer">
-                LCHAHRA
-              </h1>
-              <CardTitle className="text-center">
-                Welcome to login Page
-              </CardTitle>
+      <Card className="h-screen w-[450px] bg-black/60 backdrop-blur-2xl border-0 shadow-2xl">
+        <div className="h-full flex justify-center items-center">
+          <div className="px-8 w-full max-w-[400px]">
+            <CardHeader className="space-y-6 pb-8">
+              <div className="flex justify-center">
+                <div className="relative">
+                  <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 opacity-75 blur"></div>
+                  <div className="relative h-20 w-20 bg-black rounded-lg flex items-center justify-center">
+                    <h1 className="text-4xl font-bold text-white">L</h1>
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-2 text-center">
+                <CardTitle className="text-3xl font-bold text-white">
+                  Welcome Back
+                </CardTitle>
+                <p className="text-gray-200 text-sm">
+                  Enter your credentials to access your account
+                </p>
+              </div>
             </CardHeader>
-            <CardContent className="px-2">
+            <CardContent>
               <LoginForm />
-              <div className="flex flex-col gap-2 mt-2">
-                <Link href={'/login/forget'}>Forgot Password?</Link>
-                <Link href={'/login/signup'}>SignUp</Link>
+              <div className="mt-6 flex items-center justify-between text-sm">
+                <Link 
+                  href={'/login/forget'} 
+                  className="text-gray-200 hover:text-white transition-colors duration-200"
+                >
+                  Forgot Password?
+                </Link>
+                <Link 
+                  href={'/login/signup'} 
+                  className="inline-flex items-center text-gray-200 hover:text-white transition-colors duration-200"
+                >
+                  Create Account 
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </Link>
               </div>
             </CardContent>
           </div>
@@ -125,23 +148,30 @@ const LoginForm: React.FC = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
         <FormField
           control={form.control}
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email *</FormLabel>
+              <FormLabel className="text-white font-medium">Email</FormLabel>
               <FormControl>
-                <Input
-                  placeholder="Email"
-                  type="email"
-                  {...field}
-                  className=" sm:min-w-96"
-                />
+                <div className="relative">
+                  <Input
+                    placeholder="Enter your email"
+                    type="email"
+                    {...field}
+                    className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-white/30 focus:ring-0 pr-10"
+                  />
+                  <div className="absolute right-3 top-2.5 text-gray-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                      <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                    </svg>
+                  </div>
+                </div>
               </FormControl>
-              <FormDescription></FormDescription>
-              <FormMessage />
+              <FormMessage className="text-rose-400" />
             </FormItem>
           )}
         />
@@ -150,40 +180,46 @@ const LoginForm: React.FC = () => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password *</FormLabel>
+              <FormLabel className="text-white font-medium">Password</FormLabel>
               <FormControl>
                 <div className="relative">
                   <Input
-                    placeholder="Password"
+                    placeholder="Enter your password"
                     type={showPassword ? "text" : "password"}
                     {...field}
-                    className="sm:min-w-96"
+                    className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-white/30 focus:ring-0 pr-10"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2"
+                    className="absolute right-3 top-2.5 text-gray-300 hover:text-white transition-colors"
                   >
                     {showPassword ? (
-                      <EyeOff className="h-4 w-4 text-gray-500" />
+                      <EyeOff className="h-5 w-5" />
                     ) : (
-                      <Eye className="h-4 w-4 text-gray-500" />
+                      <Eye className="h-5 w-5" />
                     )}
                   </button>
                 </div>
               </FormControl>
-              <FormDescription></FormDescription>
-              <FormMessage />
+              <FormMessage className="text-rose-400" />
             </FormItem>
           )}
         />
 
         <Button
           type="submit"
-          className="w-full disabled:cursor-not-allowed"
-          disabled={isLoading ? true : false}
+          className="w-full relative group"
+          disabled={isLoading}
         >
-          {isLoading ? <LoaderIcon className="animate-spin" /> : 'Submit'}
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 rounded-lg blur opacity-60 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+          <div className="relative bg-black px-7 py-4 rounded-lg leading-none flex items-center justify-center">
+            {isLoading ? (
+              <LoaderIcon className="animate-spin h-5 w-5 text-white" />
+            ) : (
+              <span className="text-white font-semibold">Sign In</span>
+            )}
+          </div>
         </Button>
       </form>
     </Form>
