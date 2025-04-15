@@ -56,6 +56,71 @@
     --chart-5: 340 75% 55%;
   }
 }
+
+/* === THEME COLOR VARIABLES === */
+.theme-light {
+  --bg: #fff;
+  --text: #222;
+  --primary: #2563eb;
+  --secondary: #e0e7ef;
+}
+.theme-dark {
+  --bg: #18181b;
+  --text: #fff;
+  --primary: #6366f1;
+  --secondary: #27272a;
+}
+.theme-blue {
+  --bg: #e0f2fe;
+  --text: #0369a1;
+  --primary: #0284c7;
+  --secondary: #bae6fd;
+}
+.theme-green {
+  --bg: #e7fbe7;
+  --text: #166534;
+  --primary: #22c55e;
+  --secondary: #bbf7d0;
+}
+.theme-purple {
+  --bg: #ede9fe;
+  --text: #7c3aed;
+  --primary: #a78bfa;
+  --secondary: #ddd6fe;
+}
+.theme-orange {
+  --bg: #fff7ed;
+  --text: #ea580c;
+  --primary: #fb923c;
+  --secondary: #fed7aa;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.3s, color 0.3s;
+}
+
+/* Example utility classes for components */
+.bg-theme {
+  background: var(--bg) !important;
+}
+.text-theme {
+  color: var(--text) !important;
+}
+.bg-primary-theme {
+  background: var(--primary) !important;
+}
+.text-primary-theme {
+  color: var(--primary) !important;
+}
+.bg-secondary-theme {
+  background: var(--secondary) !important;
+}
+.text-secondary-theme {
+  color: var(--secondary) !important;
+}
+
 @layer base {
   * {
     @apply border-border;
