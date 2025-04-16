@@ -164,7 +164,12 @@ const LoginForm: React.FC = () => {
                     className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-white/30 focus:ring-0 pr-10"
                   />
                   <div className="absolute right-3 top-2.5 text-gray-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
                       <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                       <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                     </svg>
@@ -185,7 +190,7 @@ const LoginForm: React.FC = () => {
                 <div className="relative">
                   <Input
                     placeholder="Enter your password"
-                    type={showPassword ? "text" : "password"}
+                    type={showPassword ? 'text' : 'password'}
                     {...field}
                     className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-white/30 focus:ring-0 pr-10"
                   />
@@ -213,7 +218,7 @@ const LoginForm: React.FC = () => {
           disabled={isLoading}
         >
           <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 rounded-lg blur opacity-60 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
-          <div className="relative bg-black px-7 py-4 rounded-lg leading-none flex items-center justify-center">
+          <div className="relative bg-black px-10 py-4 rounded-lg leading-none flex items-center justify-center">
             {isLoading ? (
               <LoaderIcon className="animate-spin h-5 w-5 text-white" />
             ) : (

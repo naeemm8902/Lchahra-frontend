@@ -13,15 +13,18 @@ export default function Dashboard() {
   const { selectedWorkspace, selectWorkspace, clearWorkspace } = useWorkspace();
   const [greeting, setGreeting] = useState('');
   const [currentTime, setCurrentTime] = useState('');
+  const userdata: any = JSON.parse(
+    sessionStorage.getItem('loginUser') || 'null',
+  );
 
   const handleAddWorkspaceClick = () => {
     setShowAddWorkspaceForm(true);
   };
-  
+
   const handleCloseForm = () => {
     setShowAddWorkspaceForm(false);
   };
-  
+
   const [workspaces, setWorkspaces] = useState<any>(null);
 
   // Get greeting based on time of day
@@ -30,16 +33,18 @@ export default function Dashboard() {
     if (hour < 12) setGreeting('Good morning');
     else if (hour < 18) setGreeting('Good afternoon');
     else setGreeting('Good evening');
-    
+
     // Set current time
     const updateTime = () => {
       const now = new Date();
-      setCurrentTime(now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+      setCurrentTime(
+        now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      );
     };
-    
+
     updateTime();
     const timeInterval = setInterval(updateTime, 60000);
-    
+
     return () => clearInterval(timeInterval);
   }, []);
 
@@ -62,35 +67,50 @@ export default function Dashboard() {
       console.log('Error creating workspace:', err);
     }
   }
-  
+
   useEffect(() => {
     getMyWorkspaces();
   }, []);
 
   const stats = [
-    { title: "Tasks", value: "12", status: "3 due today" },
-    { title: "Meetings", value: "4", status: "Next in 2h" },
-    { title: "Projects", value: "7", status: "2 active" },
-    { title: "Team Members", value: "16", status: "4 online" }
+    { title: 'Tasks', value: '12', status: '3 due today' },
+    { title: 'Meetings', value: '4', status: 'Next in 2h' },
+    { title: 'Projects', value: '7', status: '2 active' },
+    { title: 'Team Members', value: '16', status: '4 online' },
   ];
-  
+
   const recentActivity = [
-    { user: "Alex Morgan", action: "commented on", item: "Project Roadmap", time: "10m ago" },
-    { user: "Taylor Kim", action: "assigned you to", item: "UI Design Review", time: "1h ago" },
-    { user: "Jamie Smith", action: "mentioned you in", item: "Marketing Strategy", time: "3h ago" }
+    {
+      user: 'Alex Morgan',
+      action: 'commented on',
+      item: 'Project Roadmap',
+      time: '10m ago',
+    },
+    {
+      user: 'Taylor Kim',
+      action: 'assigned you to',
+      item: 'UI Design Review',
+      time: '1h ago',
+    },
+    {
+      user: 'Jamie Smith',
+      action: 'mentioned you in',
+      item: 'Marketing Strategy',
+      time: '3h ago',
+    },
   ];
-  
+
   const upcomingEvents = [
-    { title: "Team Standup", time: "10:00 AM", participants: 8 },
-    { title: "Q2 Planning", time: "2:00 PM", participants: 12 }
+    { title: 'Team Standup', time: '10:00 AM', participants: 8 },
+    { title: 'Q2 Planning', time: '2:00 PM', participants: 12 },
   ];
 
   const onboardingSteps = [
-    { id: 1, title: "Complete your profile", completed: true },
-    { id: 2, title: "Join the team channel", completed: true },
-    { id: 3, title: "Set your working hours", completed: true },
-    { id: 4, title: "Connect integrations", completed: false },
-    { id: 5, title: "Invite team members", completed: false }
+    { id: 1, title: 'Complete your profile', completed: true },
+    { id: 2, title: 'Join the team channel', completed: true },
+    { id: 3, title: 'Set your working hours', completed: true },
+    { id: 4, title: 'Connect integrations', completed: false },
+    { id: 5, title: 'Invite team members', completed: false },
   ];
 
   return (
@@ -105,7 +125,9 @@ export default function Dashboard() {
                   <MdDashboard className="text-2xl text-theme" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-primary-theme">Lhahra Workspace</h2>
+                  <h2 className="text-2xl font-bold text-primary-theme">
+                    Lhahra Workspace
+                  </h2>
                   <p className="text-sm text-secondary-theme mt-1">
                     Premium Workspace • 14 days Free trial
                   </p>
@@ -129,12 +151,19 @@ export default function Dashboard() {
 
           {/* Welcome Message */}
           <div className="mb-6">
-            <h1 className="text-2xl font-bold text-theme">{greeting}, Jane!</h1>
-            <p className="text-secondary-theme mt-1">Welcome to your workspace. Here's what's happening today.</p>
+            <h1 className="text-2xl font-bold text-theme">
+              {greeting} <span> </span>
+              {userdata?.name}
+            </h1>
+            <p className="text-secondary-theme mt-1">
+              Welcome to your workspace. Here's what's happening today.
+            </p>
           </div>
 
           {/* Your Workspace Section Moved to Top */}
-          <h1 className="text-primary-theme text-2xl mb-4 text-left">Your workspace</h1>
+          <h1 className="text-primary-theme text-2xl mb-4 text-left">
+            Your workspace
+          </h1>
 
           {/* Your Workspace Metrics */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
@@ -177,26 +206,56 @@ export default function Dashboard() {
 
           {/* Onboarding Progress */}
           <Panel className="bg-secondary-theme rounded-xl border border-gray-700/30 mb-8">
-            <FlexboxGrid justify="space-between" align="middle" className="mb-4">
+            <FlexboxGrid
+              justify="space-between"
+              align="middle"
+              className="mb-4"
+            >
               <FlexboxGrid.Item as={Col}>
-                <h3 className="font-semibold text-theme">Get started with your workspace</h3>
+                <h3 className="font-semibold text-theme">
+                  Get started with your workspace
+                </h3>
               </FlexboxGrid.Item>
               <FlexboxGrid.Item as={Col}>
-                <span className="text-sm text-primary-theme">3/5 completed</span>
+                <span className="text-sm text-primary-theme">
+                  3/5 completed
+                </span>
               </FlexboxGrid.Item>
             </FlexboxGrid>
 
-            <Progress.Line percent={60} strokeColor="#3498ff" className="mb-6" />
+            <Progress.Line
+              percent={60}
+              strokeColor="#3498ff"
+              className="mb-6"
+            />
 
             <FlexboxGrid justify="start" align="middle">
               {onboardingSteps.map((step) => (
-                <FlexboxGrid.Item as={Col} xs={24} sm={12} md={8} lg={6} key={step.id} className="mb-4">
+                <FlexboxGrid.Item
+                  as={Col}
+                  xs={24}
+                  sm={12}
+                  md={8}
+                  lg={6}
+                  key={step.id}
+                  className="mb-4"
+                >
                   <div className="bg-secondary-theme/50 rounded-lg p-4 border border-gray-700/30 mr-2">
                     <div className="flex items-center">
-                      <div className={`h-8 w-8 rounded-full ${step.completed ? 'bg-green-100 text-green-600' : 'bg-primary-theme/20 text-primary-theme'} flex items-center justify-center mr-3`}>
+                      <div
+                        className={`h-8 w-8 rounded-full ${step.completed ? 'bg-green-100 text-green-600' : 'bg-primary-theme/20 text-primary-theme'} flex items-center justify-center mr-3`}
+                      >
                         {step.completed ? (
-                          <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          <svg
+                            className="h-4 w-4"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clipRule="evenodd"
+                            />
                           </svg>
                         ) : (
                           <span className="text-sm font-medium">{step.id}</span>
@@ -213,10 +272,21 @@ export default function Dashboard() {
           {/* Stats Grid */}
           <FlexboxGrid justify="space-between" className="mb-8">
             {stats.map((stat, index) => (
-              <FlexboxGrid.Item as={Col} xs={24} sm={12} md={6} key={index} className="mb-4">
+              <FlexboxGrid.Item
+                as={Col}
+                xs={24}
+                sm={12}
+                md={6}
+                key={index}
+                className="mb-4"
+              >
                 <Panel className="h-full bg-secondary-theme rounded-xl border border-gray-700/30">
-                  <p className="text-sm font-medium text-secondary-theme">{stat.title}</p>
-                  <p className="text-3xl font-bold mt-2 mb-1 text-theme">{stat.value}</p>
+                  <p className="text-sm font-medium text-secondary-theme">
+                    {stat.title}
+                  </p>
+                  <p className="text-3xl font-bold mt-2 mb-1 text-theme">
+                    {stat.value}
+                  </p>
                   <p className="text-xs text-secondary-theme">{stat.status}</p>
                 </Panel>
               </FlexboxGrid.Item>
@@ -227,55 +297,94 @@ export default function Dashboard() {
           <FlexboxGrid justify="space-between" className="mb-8">
             <FlexboxGrid.Item as={Col} xs={24} lg={16} className="mb-4">
               <Panel className="h-full bg-secondary-theme rounded-xl border border-gray-700/30">
-                <FlexboxGrid justify="space-between" align="middle" className="mb-6">
+                <FlexboxGrid
+                  justify="space-between"
+                  align="middle"
+                  className="mb-6"
+                >
                   <FlexboxGrid.Item>
-                    <h3 className="font-semibold text-theme">Recent Activity</h3>
+                    <h3 className="font-semibold text-theme">
+                      Recent Activity
+                    </h3>
                   </FlexboxGrid.Item>
                   <FlexboxGrid.Item>
-                    <Button appearance="link" className="text-sm text-primary-theme">View all</Button>
+                    <Button
+                      appearance="link"
+                      className="text-sm text-primary-theme"
+                    >
+                      View all
+                    </Button>
                   </FlexboxGrid.Item>
                 </FlexboxGrid>
-                
+
                 <Stack direction="column" spacing={8}>
                   {recentActivity.map((item, index) => (
-                    <div key={index} className="flex items-start p-3 rounded-lg hover:bg-secondary-theme/50 cursor-pointer">
+                    <div
+                      key={index}
+                      className="flex items-start p-3 rounded-lg hover:bg-secondary-theme/50 cursor-pointer"
+                    >
                       <div className="h-10 w-10 rounded-full bg-primary-theme/20 text-primary-theme flex items-center justify-center mr-3">
-                        <span className="font-medium">{item.user.split(' ').map(n => n[0]).join('')}</span>
+                        <span className="font-medium">
+                          {item.user
+                            .split(' ')
+                            .map((n) => n[0])
+                            .join('')}
+                        </span>
                       </div>
                       <div className="flex-1">
                         <p className="text-sm">
-                          <span className="font-medium text-theme">{item.user}</span>{' '}
-                          <span className="text-secondary-theme">{item.action}</span>{' '}
-                          <span className="font-medium text-primary-theme">{item.item}</span>
+                          <span className="font-medium text-theme">
+                            {item.user}
+                          </span>{' '}
+                          <span className="text-secondary-theme">
+                            {item.action}
+                          </span>{' '}
+                          <span className="font-medium text-primary-theme">
+                            {item.item}
+                          </span>
                         </p>
-                        <p className="text-xs text-secondary-theme mt-1">{item.time}</p>
+                        <p className="text-xs text-secondary-theme mt-1">
+                          {item.time}
+                        </p>
                       </div>
                       <MdChevronRight className="h-5 w-5 text-secondary-theme" />
                     </div>
                   ))}
                 </Stack>
-                
-                <Button appearance="default" className="w-full mt-4 text-center py-3 border border-gray-700/30 rounded-lg text-sm text-secondary-theme hover:bg-secondary-theme/50">
+
+                <Button
+                  appearance="default"
+                  className="w-full mt-4 text-center py-3 border border-gray-700/30 rounded-lg text-sm text-secondary-theme hover:bg-secondary-theme/50"
+                >
                   Load more
                 </Button>
               </Panel>
             </FlexboxGrid.Item>
-            
+
             <FlexboxGrid.Item as={Col} xs={24} lg={8} className="mb-4">
               <Stack direction="column" spacing={16}>
                 <Panel className="bg-secondary-theme rounded-xl border border-gray-700/30">
-                  <FlexboxGrid justify="space-between" align="middle" className="mb-6">
+                  <FlexboxGrid
+                    justify="space-between"
+                    align="middle"
+                    className="mb-6"
+                  >
                     <FlexboxGrid.Item>
-                      <h3 className="font-semibold text-theme">Today's Schedule</h3>
+                      <h3 className="font-semibold text-theme">
+                        Today's Schedule
+                      </h3>
                     </FlexboxGrid.Item>
                     <FlexboxGrid.Item>
                       <MdCalendarToday className="h-5 w-5 text-secondary-theme" />
                     </FlexboxGrid.Item>
                   </FlexboxGrid>
-                  
+
                   <Stack direction="column" spacing={8}>
                     {upcomingEvents.map((event, index) => (
-                      <div key={index} className="p-3 bg-secondary-theme/50 rounded-lg border border-gray-700/30">
+                      <div
+                        key={index}
+                        className="p-3 bg-secondary-theme/50 rounded-lg border border-gray-700/30"
+                      >
                         <p className="font-medium text-theme">{event.title}</p>
                         <div className="flex items-center justify-between mt-2">
                           <div className="flex items-center text-secondary-theme text-sm">
@@ -286,33 +395,62 @@ export default function Dashboard() {
                               <span>{event.participants}</span>
                             </div>
                           </div>
-                          <Button appearance="primary" size="xs" className="bg-primary-theme/20 text-primary-theme border-0 px-2 py-1 rounded">Join</Button>
+                          <Button
+                            appearance="primary"
+                            size="xs"
+                            className="bg-primary-theme/20 text-primary-theme border-0 px-2 py-1 rounded"
+                          >
+                            Join
+                          </Button>
                         </div>
                       </div>
                     ))}
                   </Stack>
-                  
-                  <Button appearance="link" className="flex items-center justify-center w-full mt-4 text-primary-theme text-sm font-medium">
+
+                  <Button
+                    appearance="link"
+                    className="flex items-center justify-center w-full mt-4 text-primary-theme text-sm font-medium"
+                  >
                     <MdAdd className="h-4 w-4 mr-1" />
                     <span>Add event</span>
                   </Button>
                 </Panel>
-                
+
                 <Panel className="bg-secondary-theme rounded-xl border border-gray-700/30">
-                  <h3 className="font-semibold text-theme mb-4">Team Members</h3>
-                  
+                  <h3 className="font-semibold text-theme mb-4">
+                    Team Members
+                  </h3>
+
                   <div className="flex flex-wrap gap-2 mb-4">
                     {['AM', 'TK', 'JS', 'LW', 'RB'].map((initials, index) => (
-                      <Avatar key={index} circle size="sm" style={{ background: 'var(--rs-primary-500)', color: 'var(--rs-text-primary)' }}>
+                      <Avatar
+                        key={index}
+                        circle
+                        size="sm"
+                        style={{
+                          background: 'var(--rs-primary-500)',
+                          color: 'var(--rs-text-primary)',
+                        }}
+                      >
                         {initials}
                       </Avatar>
                     ))}
-                    <Avatar circle size="sm" style={{ background: 'var(--rs-bg-active)', color: 'var(--rs-text-secondary)' }}>
+                    <Avatar
+                      circle
+                      size="sm"
+                      style={{
+                        background: 'var(--rs-bg-active)',
+                        color: 'var(--rs-text-secondary)',
+                      }}
+                    >
                       +11
                     </Avatar>
                   </div>
-                  
-                  <Button appearance="default" className="w-full py-2 border border-gray-700/30 rounded-lg text-sm text-secondary-theme hover:bg-secondary-theme/50">
+
+                  <Button
+                    appearance="default"
+                    className="w-full py-2 border border-gray-700/30 rounded-lg text-sm text-secondary-theme hover:bg-secondary-theme/50"
+                  >
                     View all members
                   </Button>
                 </Panel>
@@ -320,43 +458,49 @@ export default function Dashboard() {
             </FlexboxGrid.Item>
           </FlexboxGrid>
 
-          <h1 className="text-primary-theme text-2xl mb-4 text-left">Join workspace</h1>
+          <h1 className="text-primary-theme text-2xl mb-4 text-left">
+            Join workspace
+          </h1>
 
           {/* Join Workspace Metrics */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            {workspaces?.guestWorkSpaces?.map((workspace: any, index: number) => (
-              <div
-                key={index}
-                className="relative backdrop-blur-sm rounded-xl p-4 transition-all cursor-pointer group border border-gray-700/50 hover:border-blue-400/30 bg-secondary-theme text-theme h-full min-h-[180px] max-h-[180px]"
-                onClick={() => {
-                  selectWorkspace(workspaces);
-                }}
-              >
-                <div className="flex items-center justify-between h-full">
-                  <div className="w-full">
-                    <p className="text-sm text-primary-theme mb-1 truncate">
-                      {workspace.name}
-                    </p>
-                    <h3 className="text-lg font-semibold text-theme truncate">
-                      {workspace.description || `Project Phase ${index + 1}`}
-                    </h3>
-                    <div className="mt-4 absolute bottom-4 left-4 right-4">
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-primary-theme">Progress</span>
-                        <span className="text-theme">{(index + 1) * 25}%</span>
-                      </div>
-                      <div className="w-full bg-primary-theme/20 rounded-full h-2 mt-1">
-                        <div
-                          className="bg-primary-theme h-2 rounded-full"
-                          style={{ width: `${(index + 1) * 25}%` }}
-                        />
+            {workspaces?.guestWorkSpaces?.map(
+              (workspace: any, index: number) => (
+                <div
+                  key={index}
+                  className="relative backdrop-blur-sm rounded-xl p-4 transition-all cursor-pointer group border border-gray-700/50 hover:border-blue-400/30 bg-secondary-theme text-theme h-full min-h-[180px] max-h-[180px]"
+                  onClick={() => {
+                    selectWorkspace(workspaces);
+                  }}
+                >
+                  <div className="flex items-center justify-between h-full">
+                    <div className="w-full">
+                      <p className="text-sm text-primary-theme mb-1 truncate">
+                        {workspace.name}
+                      </p>
+                      <h3 className="text-lg font-semibold text-theme truncate">
+                        {workspace.description || `Project Phase ${index + 1}`}
+                      </h3>
+                      <div className="mt-4 absolute bottom-4 left-4 right-4">
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="text-primary-theme">Progress</span>
+                          <span className="text-theme">
+                            {(index + 1) * 25}%
+                          </span>
+                        </div>
+                        <div className="w-full bg-primary-theme/20 rounded-full h-2 mt-1">
+                          <div
+                            className="bg-primary-theme h-2 rounded-full"
+                            style={{ width: `${(index + 1) * 25}%` }}
+                          />
+                        </div>
                       </div>
                     </div>
+                    <MdWorkspaces className="text-2xl text-primary-theme flex-shrink-0" />
                   </div>
-                  <MdWorkspaces className="text-2xl text-primary-theme flex-shrink-0" />
                 </div>
-              </div>
-            ))}
+              ),
+            )}
           </div>
         </div>
       </div>

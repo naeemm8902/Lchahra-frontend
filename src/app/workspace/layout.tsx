@@ -26,21 +26,28 @@ const NavbarWorkspace = () => {
 const PANEL_MAP = {
   Home: <HomePanel />,
   Chat: <ChatPageContent />,
-  "Project Management": <ProjectManagementPanel />,
-  "Time Tracking": <TimeTrackingPanel />,
-  "Members Management": <MembersManagementPanel />,
+  'Project Management': <ProjectManagementPanel />,
+  'Time Tracking': <TimeTrackingPanel />,
+  'Members Management': <MembersManagementPanel />,
 };
+const activePanel = 'Members Management';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  const [selectedPanel, setSelectedPanel] = useState<keyof typeof PANEL_MAP>("Home");
+  const [selectedPanel, setSelectedPanel] =
+    useState<keyof typeof PANEL_MAP>('Home');
   return (
     <>
-    {/* navbar inside workspace */}
+      {/* navbar inside workspace */}
       <NavbarWorkspace />
       <div className="bg-theme text-theme h-screen flex">
-        <WorkSpaceSidebar selected={selectedPanel} onSelect={setSelectedPanel} />
+        <WorkSpaceSidebar
+          selected={selectedPanel}
+          onSelect={setSelectedPanel}
+        />
         <div className="flex-1 overflow-y-auto p-6 flex justify-center text-theme text-2xl bg-theme">
           {PANEL_MAP[selectedPanel]}
+
+          {selectedPanel === 'Members Management' && children}
         </div>
       </div>
     </>
