@@ -34,32 +34,38 @@ const formSchema = z.object({
 
 const page = () => {
   return (
-    <div className="flex ">
+    <div className="flex flex-col md:flex-row min-h-screen">
       <div
-        className="bg-blue-300 w-full"
+        className="hidden md:block md:flex-1 bg-blue-300"
         style={{
-          backgroundImage: 'url(/loginbg.avif)',
+          backgroundImage: 'url(/login.jpeg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       ></div>
-      <Card className=" h-screen w-fit">
-        <div className=" h-full flex justify-center items-center text-white ">
-          <div className=" px-4">
-            <CardHeader>
-              <h1 className="text-center text-4xl font-bold mb-4 cursor-pointer">
-                LCHAHRA
-              </h1>
-              <CardTitle className="text-center text-white">
-                Please put activation code from your gmail
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="px-2">
-              <InputOTPForm />
-              <div className="flex flex-col gap-2 mt-2">
-                <Link href={'/login/forget'}>Forgot Password?</Link>
-                <Link href={'/login/singup'}>SignUp</Link>
+      <Card className="flex-1 md:w-[550px] md:flex-none bg-black/60 backdrop-blur-2xl border-0 shadow-2xl">
+        <div className="min-h-screen flex justify-center items-center p-4">
+          <div className="w-full max-w-[500px] mx-auto">
+            <CardHeader className="space-y-6 pb-8">
+              <div className="flex justify-center">
+                <div className="relative">
+                  <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 opacity-75 blur"></div>
+                  <div className="relative h-16 w-16 md:h-20 md:w-20 bg-black rounded-lg flex items-center justify-center">
+                    <h1 className="text-3xl md:text-4xl font-bold text-white">L</h1>
+                  </div>
+                </div>
               </div>
+              <div className="space-y-2 text-center">
+                <CardTitle className="text-3xl font-bold text-white">
+                  Verify Email
+                </CardTitle>
+                <p className="text-gray-200 text-sm">
+                  Enter the verification code sent to your email
+                </p>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <InputOTPForm />
             </CardContent>
           </div>
         </div>
@@ -132,29 +138,36 @@ function InputOTPForm() {
           name="pin"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>One-Time Password</FormLabel>
               <FormControl>
-                <InputOTP maxLength={6} {...field}>
-                  <InputOTPGroup>
-                    <InputOTPSlot index={0} />
-                    <InputOTPSlot index={1} />
-                    <InputOTPSlot index={2} />
-                    <InputOTPSlot index={3} />
-                    <InputOTPSlot index={4} />
-                    <InputOTPSlot index={5} />
-                  </InputOTPGroup>
-                </InputOTP>
+                <div className="flex flex-col space-y-4">
+                  <div className="flex justify-center space-x-4">
+                    <Input
+                      placeholder="Enter code"
+                      {...field}
+                      className="w-full text-center text-2xl tracking-widest bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-white/30 focus:ring-0"
+                      maxLength={6}
+                    />
+                  </div>
+                  <FormMessage className="text-center text-rose-400" />
+                </div>
               </FormControl>
-              <FormDescription>
-                Please enter the one-time password sent to your email.
-              </FormDescription>
-              <FormMessage />
             </FormItem>
           )}
         />
 
-        <Button type="submit" className="w-full">
-          Submit
+        <Button
+          type="submit"
+          className="w-full relative group"
+          disabled={isLoading}
+        >
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 rounded-lg blur opacity-60 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+          <div className="relative bg-black px-7 py-4 rounded-lg leading-none flex items-center justify-center">
+            {isLoading ? (
+              <LoaderIcon className="animate-spin h-5 w-5 text-white" />
+            ) : (
+              <span className="text-white font-semibold">Verify Code</span>
+            )}
+          </div>
         </Button>
       </form>
     </Form>
